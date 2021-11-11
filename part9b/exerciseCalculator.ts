@@ -8,12 +8,8 @@ interface Result{
     average: number
 }
 
-interface dataCalculator{
-    target: number,
-    hours: Array<number>
-}
 
-const calculateExercises = (target:number, hours: Array<number>): Result =>{ 
+export const calculateExercises = (target:number, hours: Array<number>): Result =>{ 
 
     const average = hours.reduce((sum, hour) => sum+hour, 0)/hours.length;
 
@@ -38,6 +34,13 @@ const calculateExercises = (target:number, hours: Array<number>): Result =>{
     };
 };
 
+/*
+interface dataCalculator{
+    target: number,
+    hours: Array<number>
+}
+
+
 const parseArguments = (args: Array<string>): dataCalculator => { 
     if (args.length<4) throw new Error('Not enogh arguments');  
 
@@ -60,6 +63,7 @@ const parseArguments = (args: Array<string>): dataCalculator => {
     };
 };
 
+
 try {
     const { target, hours } = parseArguments(process.argv); 
     console.log(calculateExercises(target, hours));
@@ -70,4 +74,4 @@ try {
     }
     console.log(errorMessage);
 }
- 
+ */

@@ -1,7 +1,3 @@
-interface dataBMI{
-    height: number,
-    weight: number
-}
 
 export const calculateBmi=(height:number, weight: number) :string => {
     const bmi = weight/(height/100)**2;
@@ -15,6 +11,14 @@ export const calculateBmi=(height:number, weight: number) :string => {
     else if (bmi >=35 && bmi<40) return 'Obese (Class II)';
     else return 'Obese (Class III)';
 };
+
+/*
+
+interface dataBMI{
+    height: number,
+    weight: number
+}
+
 
 const parseArgumentsBmi = (args: Array<string>): dataBMI => { 
     if (args.length<4) throw new Error('Not enogh arguments');
@@ -40,3 +44,4 @@ try {
     }
     console.log(errorMessage);
 }
+*/
