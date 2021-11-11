@@ -8,8 +8,13 @@ interface Result{
     average: number
 }
 
-const calculateExercises = (hours: Array<number>, target:number): Result =>{ 
-    
+interface dataCalculator{
+    target: number,
+    hours: Array<number>
+}
+
+const calculateExercises = (target:number, hours: Array<number>): Result =>{ 
+
     const average = hours.reduce((sum, hour) => sum+hour, 0)/hours.length;
 
     let rating = 2;
@@ -33,4 +38,36 @@ const calculateExercises = (hours: Array<number>, target:number): Result =>{
     }
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+const parseArguments = (args: Array<string>): dataCalculator => { 
+    if (args.length<4) throw new Error('Not enogh arguments');  
+
+    let target: number = Number(args[2]);
+    const hours: Array<number> = args.slice(3).map((number) => {
+        if(!isNaN(Number(number))){
+           return Number(number);
+        }else{
+            throw new Error(`Provided value(${number}) for hours must by a number`);
+        }
+    });
+    
+    if(isNaN(Number(args[2]))){ 
+        throw new Error('Provided values for target must by a number');
+    }
+
+    return {
+        target,
+        hours
+    };
+}
+
+try {
+    const { target, hours } = parseArguments(process.argv); 
+    console.log(calculateExercises(target, hours));
+} catch (error: unknown) {
+    let errorMessage = 'Something bad happened.'
+    if(error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
+}
+ 

@@ -1,3 +1,8 @@
+interface dataBMI{
+    height: number,
+    mass: number
+}
+
 const calculateBmi=(height:number, mass: number) :string => {
     const bmi = mass/(height/100)**2;
    
@@ -11,4 +16,27 @@ const calculateBmi=(height:number, mass: number) :string => {
     else return 'Obese (Class III)';
 }
 
-console.log(calculateBmi(180, 74));
+const parseArgumentsBmi = (args: Array<string>): dataBMI => { 
+    if (args.length<4) throw new Error('Not enogh arguments');
+    if (args.length>4) throw new Error('To many arguments');
+
+    if(!isNaN(Number(args[2])) && !isNaN(Number(args[3]))){
+        return{
+            height: Number(args[2]),
+            mass: Number(args[3])
+        }
+    }else{
+        throw new Error('Provided values were not numbers!');
+    }
+}
+
+try {
+    const { height, mass } = parseArgumentsBmi(process.argv);
+    console.log(calculateBmi(height, mass));
+} catch (error: unknown) {
+    let errorMessage = 'Something bad happened.'
+    if(error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
+}
