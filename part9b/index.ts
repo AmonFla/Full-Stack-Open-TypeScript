@@ -18,4 +18,4 @@ app.get('/bmi', (req,res)=>{
 const PORT = 3002;
 app.listen(PORT,()=>{
     console.log(`server at ${PORT}`);
-})
+});

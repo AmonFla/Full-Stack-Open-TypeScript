@@ -9,4 +9,5 @@ Ejercicios de la sección TypeScript del curso de https://fullstackopen.com
 * [Narrowing/Type Guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#typeof-type-guards)
 * [Online TypeScript](dhttps://www.typescriptlang.org/play)
 * [Data Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
-' [tscondig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+* [tscondig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+* [Modules](https://www.typescriptlang.org/docs/handbook/modules.html)

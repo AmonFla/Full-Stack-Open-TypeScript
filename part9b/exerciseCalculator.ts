@@ -35,13 +35,13 @@ const calculateExercises = (target:number, hours: Array<number>): Result =>{
         ratingDescription,
         target,
         average
-    }
-}
+    };
+};
 
 const parseArguments = (args: Array<string>): dataCalculator => { 
     if (args.length<4) throw new Error('Not enogh arguments');  
 
-    let target: number = Number(args[2]);
+    const target = Number(args[2]);
     const hours: Array<number> = args.slice(3).map((number) => {
         if(!isNaN(Number(number))){
            return Number(number);
@@ -58,13 +58,13 @@ const parseArguments = (args: Array<string>): dataCalculator => {
         target,
         hours
     };
-}
+};
 
 try {
     const { target, hours } = parseArguments(process.argv); 
     console.log(calculateExercises(target, hours));
 } catch (error: unknown) {
-    let errorMessage = 'Something bad happened.'
+    let errorMessage = 'Something bad happened.';
     if(error instanceof Error) {
       errorMessage += ' Error: ' + error.message;
     }
