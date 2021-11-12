@@ -11,3 +11,4 @@ Ejercicios de la sección TypeScript del curso de https://fullstackopen.com
 * [Data Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
 * [tscondig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 * [Modules](https://www.typescriptlang.org/docs/handbook/modules.html)
+* [Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)

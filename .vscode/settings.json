@@ -2,6 +2,5 @@
     "eslint.workingDirectories": [
       "./part9b",
       "./part9c/backend"
-      "./part9c/patientor"
     ]
   }
