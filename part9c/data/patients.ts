@@ -1,4 +1,7 @@
-[
+import { Patient } from "../src/types";
+import { bodyToNewPatient } from "../src/utils/validation";
+
+const data = [
     {
         "id": "d2773336-f723-11e9-8f0b-362b9e155667",
         "name": "John McClane",
@@ -39,4 +42,12 @@
         "gender": "male",
         "occupation": "Digital evangelist"
     }
-]
+];
+
+const dataPatients: Patient[] = data.map(obj =>{
+    const object = bodyToNewPatient(obj) as Patient;
+    object.id = obj.id;
+    return object;
+});
+
+export default dataPatients;
