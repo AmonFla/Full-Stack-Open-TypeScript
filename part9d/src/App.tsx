@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import Content from './components/Content';
 import Total from './components/Total';
-import { CoursePart } from './types';
+import { CoursePart } from './types/course';
 
 const App = () => {
   // const-declarations

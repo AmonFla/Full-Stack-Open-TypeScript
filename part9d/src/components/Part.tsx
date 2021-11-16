@@ -1,6 +1,5 @@
 import React from 'react'; 
-import PropTypes from 'prop-types';
-import { CoursePart } from '../types';
+import { CoursePart } from '../types/course';
 import { assetNever } from '../helpers/type';
 
 const Part = (props: any) => { 
