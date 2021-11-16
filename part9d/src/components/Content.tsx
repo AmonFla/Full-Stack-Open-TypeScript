@@ -1,7 +1,7 @@
 import React from 'react'; 
 import PropTypes from 'prop-types';
 import Part from './Part';
-import { CoursePart } from '../types';
+import { CoursePart } from '../types/course';
 
 const Content = (props: any) => { 
 
@@ -12,8 +12,5 @@ const Content = (props: any) => {
   )
 };
 
-Content.propTypes ={
-    parts: PropTypes.array
-}
 
 export default Content;
