@@ -12,3 +12,4 @@ Ejercicios de la sección TypeScript del curso de https://fullstackopen.com
 * [tscondig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 * [Modules](https://www.typescriptlang.org/docs/handbook/modules.html)
 * [Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+* [Differences Between Type Aliases and Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
