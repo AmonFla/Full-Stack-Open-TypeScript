@@ -9,7 +9,6 @@ export const bodyToNewPatient = (body: any) :NewPatient =>{
         ssn: parseGenericString('ssn', body.ssn),
         occupation: parseGenericString('occupation', body.occupation),
         gender: parseGender(body.gender)
-
     };
 
     return newPatient;

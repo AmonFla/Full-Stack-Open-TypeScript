@@ -15,9 +15,16 @@ const getPatients = (): NoExtraPatientInfo[] => {
     
 };
 
+const getPatientById = (id: string): Patient | undefined => {
+    
+    return data.find( (p: Patient ) => p.id === id );
+    
+};
+
 const addPatient = (body: NewPatient) : Patient =>{
     const newPatient: Patient = {
         id: uuid(),
+        entries: [],
         ...body
     };
 
@@ -27,5 +34,6 @@ const addPatient = (body: NewPatient) : Patient =>{
 
 export default {
     getPatients,
-    addPatient
+    addPatient,
+    getPatientById
 };
