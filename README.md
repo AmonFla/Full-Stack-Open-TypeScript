@@ -13,3 +13,6 @@ Ejercicios de la sección TypeScript del curso de https://fullstackopen.com
 * [Modules](https://www.typescriptlang.org/docs/handbook/modules.html)
 * [Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 * [Differences Between Type Aliases and Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
+* [context](https://reactjs.org/docs/context.html)
+* [React Hooks for State Management!(useContext, useEffect, useReducer)](https://medium.com/@seantheurgel/react-hooks-as-state-management-usecontext-useeffect-usereducer-a75472a862fe)
+* []
