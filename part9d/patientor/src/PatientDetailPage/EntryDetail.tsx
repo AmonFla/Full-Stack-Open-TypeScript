@@ -12,7 +12,7 @@ const EntryDetail: React.FC<Props> = ({entry, diagnosis}) => {
     const getDiagnosis= (code: string):string => {
         const data : Diagnosis = diagnosis[code];
         return data.code+' - '+data.name;
-    }; 
+    };  
    
     return(
         <>
