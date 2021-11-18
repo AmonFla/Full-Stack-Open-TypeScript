@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { Patient, GenderIcon} from "../types";
 import { apiBaseUrl } from "../constants";
-import { useStateValue } from "../state";
+import { useStateValue, updatePatient } from "../state";
 import { useParams } from "react-router";
 import { Container, Icon, SemanticICONS } from "semantic-ui-react";
 
@@ -20,7 +20,7 @@ const PatientDetailPage: React.FC = () => {
         if(!lastPatient || lastPatient.id !== params.id ){
           const { data: patientData } = await axios.get<Patient>(`${apiBaseUrl}/patients/${params.id}`);
           setPatient(patientData);   
-          dispatch({ type: "UPDATE_PATIENT", payload: patientData }); 
+          dispatch(updatePatient(patientData)); 
         }else{
           setPatient(lastPatient);
         }
