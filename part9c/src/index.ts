@@ -16,7 +16,7 @@ app.get('/api/ping', (_req, res)=>{
     res.send('pong');
 });
 
-app.use('/api/diagnoses', routerDiagnose);
+app.use('/api/diagnosis', routerDiagnose);
 app.use('/api/patients', routerPatient);
 
 app.listen(PORT, ()=>{

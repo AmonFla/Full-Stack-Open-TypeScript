@@ -12,7 +12,7 @@ import EntryDetail from "./EntryDetail";
 //import EntryDetail from "./EntryDetail";
 
 const PatientDetailPage: React.FC = () => {
-  const [{ lastPatient }, dispatch] = useStateValue();
+  const [{ lastPatient, diagnosis }, dispatch] = useStateValue();
   const [patient, setPatient] = useState<Patient>();
   const params = useParams<{ id: string }>();
   
@@ -45,7 +45,7 @@ const PatientDetailPage: React.FC = () => {
            <p>ssn: {patient.ssn}<br />
            ocupation: {patient.occupation}</p>
            <h4>entries</h4>
-           {patient.entries.map( entry => <EntryDetail key={entry.id} entry={entry} /> )}
+           {patient.entries.map( entry => <EntryDetail key={entry.id} entry={entry} diagnosis={diagnosis}/> )}
          </Container>
     </div>
   );
