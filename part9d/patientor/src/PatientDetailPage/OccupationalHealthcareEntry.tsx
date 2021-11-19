@@ -1,20 +1,11 @@
 import React from "react"; 
 import { Icon, Segment } from "semantic-ui-react";
-import { Diagnosis, OccupationalHealthcareEntry } from "../types"; 
+import { OccupationalHealthcareEntry } from "../types"; 
+import DiagnosisList from "./DiagnososList";
+ 
 
-interface Props {
-    entry: OccupationalHealthcareEntry; 
-    diagnosis: { [code:string]: Diagnosis};
-}
+const OccupationalHealthcareEntryComponent: React.FC<{entry: OccupationalHealthcareEntry}> = ({entry}) => {  
 
-const OccupationalHealthcareEntryComponent: React.FC<Props> = ({entry, diagnosis}) => {  
-    console.log(diagnosis);
-
-    const getDiagnosis= (code: string):string => {
-        const data : Diagnosis = diagnosis[code];
-        return data.code+' - '+data.name;
-    };  
-   
     return(
         <Segment>
             
@@ -26,12 +17,9 @@ const OccupationalHealthcareEntryComponent: React.FC<Props> = ({entry, diagnosis
              :null}
 
             </p> 
-            {(entry.diagnosisCodes !== undefined)?
-                <><h4>Diagnosis</h4>
-                <ul>
-                    {entry.diagnosisCodes?.map(d => <li key={d}>{getDiagnosis(d)}</li>)}    
-                </ul></>
-            :<></>}
+            {entry.diagnosisCodes && (
+                <DiagnosisList diagnosesCodes={entry.diagnosisCodes} />
+            )}
            
         </Segment>
     );
