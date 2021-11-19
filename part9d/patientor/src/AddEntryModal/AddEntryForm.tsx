@@ -5,6 +5,7 @@ import { Field, Formik, Form } from "formik";
 import { TextField, DiagnosisSelection,  NumberField } from "../AddPatientModal/FormField";
 import { Entry, HealthCheckEntry } from "../types";
 import { useStateValue } from "../state";
+import { parseGenericDate, parseGenericString } from "../utils/validation";
 
 
 /*
@@ -37,19 +38,28 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
       onSubmit={onSubmit}
       validate={values => {
         const requiredError = "Field is required";
+        const invalidString = "Invalid String";
+        const invalidDate = "Invalid Date";
         const errors: { [field: string]: string } = {};
         if (!values.description) {
           errors.description = requiredError;
+        }else if(!parseGenericString(values.description)){
+          errors.description = invalidString;
         }
+
         if (!values.date) {
           errors.date = requiredError;
+        }else if(!parseGenericDate(values.date)){
+          errors.date = invalidDate;
         }
+        
         if (!values.specialist) {
           errors.specialist = requiredError;
+        }else if(!parseGenericString(values.specialist)){
+          errors.specialist = invalidString;
         }
-        if (!values.healthCheckRating) {
-          errors.healthCheckRating = requiredError;
-        }
+        
+        
         return errors;
       }}
     >
