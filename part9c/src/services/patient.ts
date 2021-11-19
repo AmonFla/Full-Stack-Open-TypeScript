@@ -1,5 +1,5 @@
 import data from '../../data/patients';
-import { NoExtraPatientInfo, Patient, NewPatient } from '../types';
+import { NoExtraPatientInfo, Patient, NewPatient, NewEntry, Entry } from '../types';
 import { v4 as uuid } from 'uuid';
 
 const getPatients = (): NoExtraPatientInfo[] => {
@@ -32,8 +32,19 @@ const addPatient = (body: NewPatient) : Patient =>{
     return newPatient;
 };
 
+const addPatientEntry = ((id:string, entry: NewEntry) : Patient | undefined =>{
+    data.map(p => {
+        if(p.id === id){
+            p.entries = [...p.entries, <Entry>{id:uuid(), ...entry}];
+        }
+        return p;
+    });
+    return getPatientById(id);
+});
+
 export default {
     getPatients,
     addPatient,
-    getPatientById
+    getPatientById,
+    addPatientEntry
 };

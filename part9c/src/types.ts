@@ -33,7 +33,7 @@ interface HealthCheckEntry extends BaseEntry {
    healthCheckRating: HealthCheckRating;
 }
 
-interface Discharge{
+export interface Discharge{
     date: string;
     criteria: string;
  }
@@ -72,3 +72,5 @@ export interface Patient{
 export type NoExtraPatientInfo = Omit<Patient, 'ssn' | 'entries'>;
 
 export type NewPatient = Omit<Patient, 'id' | 'entries'>;
+export type NewBaseEntry = Omit<BaseEntry, 'id'>;
+export type NewEntry = Omit<Entry, 'id'>;
