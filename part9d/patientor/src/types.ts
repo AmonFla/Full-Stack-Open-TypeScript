@@ -40,8 +40,12 @@ export enum HealthCheckRating {
   "HighRisk" = 2,
   "CriticalRisk" = 3
 }
+
+export enum HealthCheckRatingColors {
+  "green", "blue","yellow","red"
+}
   
- interface HealthCheckEntry extends BaseEntry {
+export interface HealthCheckEntry extends BaseEntry {
    type: "HealthCheck";
    healthCheckRating: HealthCheckRating;
 }
@@ -51,7 +55,7 @@ interface Discharge{
     criteria: string;
  }
 
-interface HospitalEntry extends BaseEntry {
+export interface HospitalEntry extends BaseEntry {
     type: "Hospital";
     discharge: Discharge;
  }
@@ -61,7 +65,7 @@ interface HospitalEntry extends BaseEntry {
     endDate: string;
  }
 
- interface OccupationalHealthcareEntry extends BaseEntry {
+export interface OccupationalHealthcareEntry extends BaseEntry {
     type: "OccupationalHealthcare";
     sickLeave?: SickLeave,
     employerName: string;

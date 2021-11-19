@@ -1,28 +1,19 @@
-import React from "react"; 
-import { Diagnosis, Entry } from "../types"; 
+import React from "react";
+import { Diagnosis, Entry } from "../types";
 
-interface Props {
-    entry: Entry; 
-    diagnosis: { [code:string]: Diagnosis};
-}
+import HospitalEntryComponent from "./HospitalEntry";
+import HealthCheckEntryComponent from "./HealthCheckEntry";
+import OccupationalHealthcareEntryComponent from "./OccupationalHealthcareEntry"; 
 
-const EntryDetail: React.FC<Props> = ({entry, diagnosis}) => {  
-    console.log(diagnosis);
-
-    const getDiagnosis= (code: string):string => {
-        const data : Diagnosis = diagnosis[code];
-        return data.code+' - '+data.name;
-    };  
-   
-    return(
-        <>
-            <p>{entry.date} {entry.description}</p> 
-            <ul>
-                {entry.diagnosisCodes?.map(d => <li key={d}>{getDiagnosis(d)}</li>)}    
-            </ul>
-           
-        </>
-    );
+const EntryDetail: React.FC<{entry: Entry, diagnosis: {[code:string]:Diagnosis}}> = ({entry, diagnosis}) => {
+    switch(entry.type){
+        case "Hospital":
+            return <HospitalEntryComponent entry={entry} diagnosis={diagnosis}/>;
+        case "HealthCheck":
+            return <HealthCheckEntryComponent entry={entry} diagnosis={diagnosis}/>;
+        case "OccupationalHealthcare":
+            return <OccupationalHealthcareEntryComponent entry={entry} diagnosis={diagnosis}/>; 
+    }
 };
 
 export default EntryDetail;

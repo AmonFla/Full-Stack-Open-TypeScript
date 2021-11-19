@@ -7,7 +7,7 @@ import { Patient, GenderIcon} from "../types";
 import { apiBaseUrl } from "../constants";
 import { useStateValue, updatePatient } from "../state";
 import { useParams } from "react-router";
-import { Container, Icon, SemanticICONS } from "semantic-ui-react";
+import { Container, Icon, SemanticICONS } from "semantic-ui-react"; 
 import EntryDetail from "./EntryDetail";
 //import EntryDetail from "./EntryDetail";
 
@@ -44,7 +44,7 @@ const PatientDetailPage: React.FC = () => {
            <h3>{patient.name}<Icon name={icon}/></h3>
            <p>ssn: {patient.ssn}<br />
            ocupation: {patient.occupation}</p>
-           <h4>entries</h4>
+           <h3>Entries</h3>
            {patient.entries.map( entry => <EntryDetail key={entry.id} entry={entry} diagnosis={diagnosis}/> )}
          </Container>
     </div>
