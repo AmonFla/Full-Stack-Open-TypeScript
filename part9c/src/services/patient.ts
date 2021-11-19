@@ -32,14 +32,15 @@ const addPatient = (body: NewPatient) : Patient =>{
     return newPatient;
 };
 
-const addPatientEntry = ((id:string, entry: NewEntry) : Patient | undefined =>{
+const addPatientEntry = ((id:string, entry: NewEntry) : Entry =>{
+    const newEntry: Entry = <Entry>{id:uuid(), ...entry};
     data.map(p => {
         if(p.id === id){
-            p.entries = [...p.entries, <Entry>{id:uuid(), ...entry}];
+            p.entries = [...p.entries, newEntry];
         }
         return p;
     });
-    return getPatientById(id);
+    return newEntry;
 });
 
 export default {
