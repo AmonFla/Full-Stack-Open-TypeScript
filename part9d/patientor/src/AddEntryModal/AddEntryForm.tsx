@@ -1,36 +1,66 @@
 import React from "react";
-import { Grid, Button } from "semantic-ui-react";
+import { Grid, Button, Segment } from "semantic-ui-react";
 import { Field, Formik, Form } from "formik";
 
 import { TextField, DiagnosisSelection,  NumberField } from "../AddPatientModal/FormField";
-import { Entry, HealthCheckEntry } from "../types";
+import { Entry, HealthCheckEntry, HospitalEntry,OccupationalHealthcareEntry} from "../types";
 import { useStateValue } from "../state";
 import { parseGenericDate, parseGenericString } from "../utils/validation";
 
 
-/*
- * use type Patient, but omit id and entries,
- * because those are irrelevant for new patient object.
- */
+
 export type EntryFormValues = Omit<Entry, "id" >;
 
 interface Props {
   onSubmit: (values: EntryFormValues) => void;
   onCancel: () => void;
+  type: string;
 }
  
 
-export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
+export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
     const [{ diagnosis }] = useStateValue();
 
-    const init: Omit<HealthCheckEntry,"id"> = {
+      let  init: EntryFormValues = {
         description: "",
         date: "",
         specialist: "",
         diagnosisCodes: [],
-        type:"HealthCheck",
-        healthCheckRating: 0
-      };
+        type:"HealthCheck"
+      };  
+      switch(type){
+        case "HealthCheck":
+          const dataHealthCheck: Omit<HealthCheckEntry, "id"> = {
+            ...init,
+            type:"HealthCheck",
+            healthCheckRating: 0
+          };
+          init = dataHealthCheck;
+          break;
+        case "Hospital":
+          const dataHospital: Omit<HospitalEntry, "id"> = {
+            ...init,
+            type:"Hospital",
+            discharge:{
+              date: "",
+              criteria: ""
+            }
+          };
+          init = dataHospital;
+          break;
+        case "OccupationalHealthcare":
+            const dataOccupationalHealthcare: Omit<OccupationalHealthcareEntry, "id"> = {
+              ...init,
+              type:"OccupationalHealthcare",
+              sickLeave:{
+                startDate: "",
+                endDate: ""
+              },
+              employerName:""
+            };
+            init = dataOccupationalHealthcare;
+            break;
+      }
   return (
     <Formik
       initialValues={init}
@@ -59,13 +89,12 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
           errors.specialist = invalidString;
         }
         
-        
         return errors;
       }}
     >
       {({ isValid, dirty, setFieldValue, setFieldTouched }) => {
         return (
-          <Form className="form ui">
+          <Form className="form ui"> 
             <Field
               label="Description"
               placeholder="Description"
@@ -84,13 +113,59 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
               name="specialist"
               component={TextField}
             />
-            <Field
-              label="HealthCheckRating" 
-              name="healthCheckRating"
-              component={NumberField}
-              min={0}
-              max={3}
-            />
+            {(type==="HealthCheck")?
+              <Field
+                label="HealthCheckRating" 
+                name="healthCheckRating"
+                component={NumberField}
+                min={0}
+                max={3}
+              />
+            :null}
+            {(type==="Hospital")?
+              <Segment>
+                <h4>Discharge:</h4>
+                <Field
+                  label="Date" 
+                  name="discharge.date"
+                  placeholder="Date"
+                  component={TextField} 
+                />
+                <Field
+                  label="Criteria" 
+                  name="discharge.criteria"
+                  placeholder="Criteria"
+                  component={TextField} 
+                />
+
+              </Segment>
+            :null}
+            {(type==="OccupationalHealthcare")?
+              <>
+                <Field
+                  label="EmployerName" 
+                  name="employerName"
+                  placeholder="EmployerName"
+                  component={TextField} 
+                />
+                <Segment>
+                  <h4>Discharge:</h4>
+                  <Field
+                    label="Start Date" 
+                    name="sickLeave.startDate"
+                    placeholder="Start Date"
+                    component={TextField} 
+                  />
+                  <Field
+                    label="End Date" 
+                    name="sickLeave.endDate"
+                    placeholder="End Date"
+                    component={TextField} 
+                  />
+
+                </Segment>
+              </>
+            :null}
             <DiagnosisSelection            
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}

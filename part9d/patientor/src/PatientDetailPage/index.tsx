@@ -7,7 +7,7 @@ import { Patient, GenderIcon, Entry} from "../types";
 import { apiBaseUrl } from "../constants";
 import { useStateValue, updatePatient, addEntry } from "../state";
 import { useParams } from "react-router";
-import { Container, Icon, SemanticICONS, Button } from "semantic-ui-react"; 
+import { Container, Icon, SemanticICONS, Button, Segment } from "semantic-ui-react"; 
 import EntryDetail from "./EntryDetail";
 import AddEntryModal from "../AddEntryModal";
 import { EntryFormValues } from "../AddEntryModal/AddEntryForm";
@@ -18,14 +18,19 @@ const PatientDetailPage: React.FC = () => {
   const [patient, setPatient] = useState<Patient>();
   const params = useParams<{ id: string }>();
   
-  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string | undefined>();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [entryType, setEntryType] = useState<string>('');
+  const [error, setError] = useState<string | undefined>();
 
-  const openModal = (): void => setModalOpen(true);
+  const openModal = (type: string): void => {
+    setModalOpen(true);
+    setEntryType(type);
+  };
 
   const closeModal = (): void => {
     setModalOpen(false);
     setError(undefined);
+    setEntryType('');
   };
 
   const submitNewPatient = async (values: EntryFormValues) => {
@@ -71,15 +76,25 @@ const PatientDetailPage: React.FC = () => {
            <p>ssn: {patient.ssn}<br />
            ocupation: {patient.occupation}</p>
            <h3>Entries</h3>
-           {patient.entries.map( entry => <EntryDetail key={entry.id} entry={entry} /> )}
-         </Container>
-         <AddEntryModal
-            modalOpen={modalOpen}
-            onSubmit={submitNewPatient}
-            error={error}
-            onClose={closeModal}
-          />
-          <Button onClick={() => openModal()}>Add New Entry</Button>
+            <Segment>
+              <Button onClick={() => openModal('HealthCheck')}>Add HealthCheck Entry</Button>
+              <Button onClick={() => openModal('Hospital')}>Add Hospital Entry</Button>
+              <Button onClick={() => openModal('OccupationalHealthcare')}>Add OccupationalHealthcare Entry</Button>
+            </Segment>
+            {patient.entries.map( entry => <EntryDetail key={entry.id} entry={entry} /> )}
+            <AddEntryModal
+                entryType={entryType}
+                modalOpen={modalOpen}
+                onSubmit={submitNewPatient}
+                error={error}
+                onClose={closeModal}
+              />
+              <Segment>
+                <Button onClick={() => openModal('HealthCheck')}>Add HealthCheck Entry</Button>
+                <Button onClick={() => openModal('Hospital')}>Add Hospital Entry</Button>
+                <Button onClick={() => openModal('OccupationalHealthcare')}>Add OccupationalHealthcare Entry</Button>
+              </Segment>
+          </Container>
     </div>
   );
 };

@@ -26,7 +26,7 @@ export enum GenderIcon{
   other = "genderless"
 }
 
-interface BaseEntry {
+export interface BaseEntry {
   id: string;
   description: string;
   date: string;
@@ -50,7 +50,7 @@ export interface HealthCheckEntry extends BaseEntry {
    healthCheckRating: HealthCheckRating;
 }
 
-interface Discharge{
+export interface Discharge{
     date: string;
     criteria: string;
  }
@@ -70,6 +70,7 @@ export interface OccupationalHealthcareEntry extends BaseEntry {
     sickLeave?: SickLeave,
     employerName: string;
  }
+
 
 export type Entry =
   | HospitalEntry
