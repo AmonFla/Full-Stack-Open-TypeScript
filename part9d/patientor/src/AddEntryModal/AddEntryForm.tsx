@@ -9,7 +9,7 @@ import { parseGenericDate, parseGenericString } from "../utils/validation";
 
 
 
-export type EntryFormValues = Omit<Entry, "id" >;
+export type EntryFormValues = Omit<Entry, "id" > | Omit<HealthCheckEntry, "id">  | Omit<OccupationalHealthcareEntry, "id">  | Omit<HospitalEntry, "id"> ;
 
 interface Props {
   onSubmit: (values: EntryFormValues) => void;
@@ -21,35 +21,33 @@ interface Props {
 export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
     const [{ diagnosis }] = useStateValue();
 
-      let  init: EntryFormValues = {
+      let  init: Omit<Entry, "id" > = {
         description: "",
         date: "",
         specialist: "",
         diagnosisCodes: [],
-        type:"HealthCheck"
+        type:"HealthCheck",
       };  
       switch(type){
         case "HealthCheck":
-          const dataHealthCheck: Omit<HealthCheckEntry, "id"> = {
+          init = {
             ...init,
             type:"HealthCheck",
             healthCheckRating: 0
-          };
-          init = dataHealthCheck;
+          } as Omit<HealthCheckEntry, "id"> ; 
           break;
         case "Hospital":
-          const dataHospital: Omit<HospitalEntry, "id"> = {
+          init = {
             ...init,
             type:"Hospital",
             discharge:{
               date: "",
               criteria: ""
-            }
-          };
-          init = dataHospital;
+            } 
+          } as Omit<HospitalEntry, "id"> ; 
           break;
         case "OccupationalHealthcare":
-            const dataOccupationalHealthcare: Omit<OccupationalHealthcareEntry, "id"> = {
+            init = {
               ...init,
               type:"OccupationalHealthcare",
               sickLeave:{
@@ -57,20 +55,22 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
                 endDate: ""
               },
               employerName:""
-            };
-            init = dataOccupationalHealthcare;
-            break;
+            } as Omit<OccupationalHealthcareEntry, "id"> ; 
       }
   return (
     <Formik
       initialValues={init}
       
       onSubmit={onSubmit}
-      validate={values => {
+      validate={values => { 
         const requiredError = "Field is required";
         const invalidString = "Invalid String";
-        const invalidDate = "Invalid Date";
-        const errors: { [field: string]: string } = {};
+        const invalidDate = "Invalid Date"; 
+        interface DischargeError{
+          date?: string;
+          criteria?: string;
+        }
+        const errors: { [field: string]: string | DischargeError } = {};
         if (!values.description) {
           errors.description = requiredError;
         }else if(!parseGenericString(values.description)){
@@ -89,6 +89,36 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
           errors.specialist = invalidString;
         }
         
+        switch(type){ 
+          case "Hospital":
+            const valoresHospital = values as Omit<HospitalEntry, "id">;
+            const discharge: DischargeError = {};
+            if (!valoresHospital.discharge.criteria) {
+              discharge.criteria = requiredError;
+            }else if(!parseGenericString(valoresHospital.discharge.criteria)){
+              discharge.criteria =invalidString;
+            }
+
+            if (!valoresHospital.discharge.date) { 
+              discharge.date = requiredError; 
+            }else if(!parseGenericDate(valoresHospital.discharge.date)){
+              discharge.date = invalidDate;  
+            }
+
+            if(discharge !== {})
+              errors.discharge = discharge;
+
+            break;
+          case "OccupationalHealthcare":  
+            const valoresOcupational = values as Omit<OccupationalHealthcareEntry, "id"> ;
+            if (!valoresOcupational.employerName) {
+              errors.employerName = requiredError;
+            }else if(!parseGenericString(valoresOcupational.employerName)){
+              errors.employerName = invalidString;
+            }
+            break;
+        }
+        console.log(errors);
         return errors;
       }}
     >
@@ -126,15 +156,15 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
               <Segment>
                 <h4>Discharge:</h4>
                 <Field
-                  label="Date" 
-                  name="discharge.date"
-                  placeholder="Date"
-                  component={TextField} 
-                />
-                <Field
                   label="Criteria" 
                   name="discharge.criteria"
                   placeholder="Criteria"
+                  component={TextField} 
+                />
+                <Field
+                  label="Date" 
+                  name="discharge.date"
+                  placeholder="Date"
                   component={TextField} 
                 />
 
