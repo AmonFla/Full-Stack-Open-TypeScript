@@ -1,8 +1,8 @@
 # Full-Stack-Open-TypeScript
-Ejercicios de la sección TypeScript del curso de https://fullstackopen.com 
+Exercises from the TypeScript section of the coursee https://fullstackopen.com 
  
 
-## Lecturas adicionales
+## Further reading
 * [DefinitelyTyped](https://definitelytyped.org/)
 * [TypeScript Page](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)
 * [Type Assertions](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-assertions)
@@ -14,5 +14,4 @@ Ejercicios de la sección TypeScript del curso de https://fullstackopen.com
 * [Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 * [Differences Between Type Aliases and Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
 * [context](https://reactjs.org/docs/context.html)
-* [React Hooks for State Management!(useContext, useEffect, useReducer)](https://medium.com/@seantheurgel/react-hooks-as-state-management-usecontext-useeffect-usereducer-a75472a862fe)
-* []
+* [React Hooks for State Management!(useContext, useEffect, useReducer)](https://medium.com/@seantheurgel/react-hooks-as-state-management-usecontext-useeffect-usereducer-a75472a862fe) 
